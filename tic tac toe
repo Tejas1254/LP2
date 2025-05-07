@@ -1,0 +1,61 @@
+board = [" "] * 9
+player, computer = "X", "O"
+
+def printBoard():
+    for i in range(0, 9, 3):
+        print(board[i] + "|" + board[i+1] + "|" + board[i+2])
+    print()
+
+def win(mark):
+    lines = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
+    return any(all(board[x] == mark for x in line) for line in lines)
+
+def minimax(turn):
+    if win(computer): return 1
+    if win(player): return -1
+    if " " not in board: return 0
+
+    moves = []
+    for i in range(9):
+        if board[i] == " ":
+            board[i] = turn
+            score = minimax(player if turn == computer else computer)
+            board[i] = " "
+            moves.append(score)
+    return max(moves) if turn == computer else min(moves)
+
+def computerMove():
+    move, best = -1, -2
+    for i in range(9):
+        if board[i] == " ":
+            board[i] = computer
+            score = minimax(player)
+            board[i] = " "
+            if score > best:
+                best, move = score, i
+    board[move] = computer
+
+# Game loop
+print("Tic Tac Toe (You:X, Computer:O)")
+printBoard()
+
+while True:
+    pos = int(input("Enter (1-9): ")) - 1
+    if board[pos] != " ":
+        print("Invalid! Try again.")
+        continue
+    board[pos] = player
+
+    if win(player):
+        printBoard(); print("You win!"); break
+    if " " not in board:
+        printBoard(); print("Draw!"); break
+
+    computerMove()
+
+    if win(computer):
+        printBoard(); print("Computer wins!"); break
+    if " " not in board:
+        printBoard(); print("Draw!"); break
+
+    printBoard()

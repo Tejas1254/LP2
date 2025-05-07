@@ -1,0 +1,11 @@
+def tower(n,a,c,b):
+    if n==0: return
+
+    tower(n-1,a,b,c)
+    print(f"Move disk {n} from {a} to {c}")
+    tower(n-1,b,c,a)
+
+n=int(input("Enter the disk number"))
+tower(n,'a','c','b')
+
+

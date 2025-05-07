@@ -1,0 +1,48 @@
+import random
+
+def print_board(state):
+    for row in state:
+        line = ["Q" if col == row else "." for col in range(len(state))]
+        print(" ".join(line))
+    print()
+
+def cost(state):
+    conflicts = 0
+    n = len(state)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if state[i] == state[j] or abs(state[i] - state[j]) == abs(i - j):
+                conflicts += 1
+    return conflicts
+
+def hill_climbing(n):
+    current = [random.randint(0, n-1) for _ in range(n)]
+    while True:
+        current_cost = cost(current)
+        if current_cost == 0:
+            return current  # Found the solution
+
+        neighbors = []
+        for i in range(n):
+            for row in range(n):
+                if row != current[i]:
+                    temp = current[:]
+                    temp[i] = row
+                    neighbors.append((temp, cost(temp)))
+
+        # Sort neighbors by cost and select the one with the least conflicts
+        neighbors.sort(key=lambda x: x[1])
+
+        if neighbors[0][1] >= current_cost:  # If no better neighbor is found, stop
+            return None
+
+        current = neighbors[0][0]  # Move to the best neighbor
+
+n = int(input("Enter N: "))
+solution = hill_climbing(n)
+
+if solution:
+    print("Solution:", [x+1 for x in solution])  # +1 to match 1-indexed output
+    print_board(solution)
+else:
+    print("No solution found.")

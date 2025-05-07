@@ -1,0 +1,22 @@
+
+const express = require('express');
+const app = express();
+const path = require('path');
+
+//safely joins path to ensure platform independence 
+app.use(express.static(path.join(__dirname,'public')));
+
+//explicit route
+app.get('/',(req,res) =>{
+    res.sendFile(path.join(__dirname,'public','index.html'));
+});
+
+//Enables deployment on environments like Heroku or Vercel which assign dynamic ports via process.env.PORT
+// const port = process.env.port || 8080;
+
+const port = 8080;
+app.listen(port,()=>{
+    console.log(`Server is running at http://localhost:${port}`);
+});
+
+

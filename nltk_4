@@ -1,0 +1,33 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk import FreqDist, pos_tag
+
+# Download required NLTK data files (run only once)
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+
+# Input text
+text = input("Enter text: ")
+
+# a. Text tokenization
+tokens = word_tokenize(text)
+print("\nTokens:", tokens)
+
+# b. Count word frequency
+freq = FreqDist(tokens)
+print("\nWord Frequencies:")
+for word, count in freq.items():
+    print(f"{word}: {count}")
+
+# c. Remove stop words
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
+print("\nTokens after removing stop words:", filtered_tokens)
+
+# d. POS tagging
+pos_tags = pos_tag(filtered_tokens)
+print("\nPOS Tags:", pos_tags)
+
+

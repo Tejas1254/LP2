@@ -1,0 +1,77 @@
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+
+        merge_sort(L)
+        merge_sort(R)
+
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+# Take user input
+user_input = input("Enter numbers separated by space: ")
+arr = list(map(int, user_input.split()))
+
+# Bubble Sort
+bubble_arr = arr.copy()
+bubble_sort(bubble_arr)
+print("Bubble Sort:", bubble_arr)
+
+# Selection Sort
+selection_arr = arr.copy()
+selection_sort(selection_arr)
+print("Selection Sort:", selection_arr)
+
+# Insertion Sort
+insertion_arr = arr.copy()
+insertion_sort(insertion_arr)
+print("Insertion Sort:", insertion_arr)
+
+# Merge Sort
+merge_arr = arr.copy()
+merge_sort(merge_arr)
+print("Merge Sort:", merge_arr)

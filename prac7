@@ -1,0 +1,29 @@
+import pandas as pd
+df = pd.read_csv('heart - heart (1).csv',sep=',')
+
+df = df.drop_duplicates()
+#used to remove any duplicate rows in a DataFrame (df), keeping only the unique rows.
+
+df.isna()
+#The code df.isna() will return a DataFrame of the same shape as df, but with True for missing (NaN) values
+#and False for non-missing values.
+
+df.isna().sum()
+#.sum(): This function sums up the True values 
+#(which represent NaN values) for each column.
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(10,6))
+sns.heatmap(df.corr(),cmap='YlGnBu',annot = True)
+plt.title('Heatmap')
+
+sns.lineplot(data=df,x='age',y='chol',hue='output')
+plt.title('lineplot')
+
+sns.scatterplot(data=df, x='age', y='chol', hue='output')
+plt.title('scatterplot')
+
+sns.histplot(data=df,x='cp',hue='output')
+plt.title('Histogram')

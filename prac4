@@ -1,0 +1,39 @@
+practical 4
+import pandas as pd;
+import numpy as py
+
+df = pd.read_csv("dataset_Facebook - dataset_Facebook (1).csv",delimiter=',')
+df
+
+x = df.iloc[2:10,0:5]
+x
+
+sub1 = df[['Post Month','Post Weekday']]
+sub1.head()
+sub2 = df[['like','share']]
+sub2.head()
+
+# merge() : It combines datasets based on common columns (like SQL joins).
+merged_dataset = pd.merge(sub1,sub2,left_on='Post Month',right_on='like')
+merged_dataset.head() 
+
+#It stacks datasets either vertically (one below another) or horizontally (side by side) ,
+#It does not require common columns. You just specify axis (0 for vertical, 1 for horizontal).
+concated = pd.concat([sub1,sub2],axis=1)
+concated
+
+merged_dataset.sort_values(by='Post Month',ascending=False)
+
+#Transpose is a method in Pandas and NumPy that flips a DataFrame or array over its diagonal. 
+#In simpler terms, it swaps the rows and columns.
+#Reorganizing Data, Alignment Issues:, Visualization or Modeling, Matrix Operations 
+
+merged_dataset.transpose()
+
+array = py.array([[1,2,3,4,5,6],[1,2,3,4,5,6]])
+reshaped = array.reshape(3,4)
+reshaped
+
+melted_data = df.melt(id_vars=['Type'],value_vars=['like','comment'])
+melted_data.head(5)
+

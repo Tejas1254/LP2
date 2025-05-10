@@ -1,0 +1,26 @@
+import requests
+import bs4
+req1 = requests.get('https://www.flipkart.com/apple-iphone-13-starlight-128-gb/p/itmc9604f122ae7f?pid=MOBG6VF5ADKHKXFX&lid=LSTMOBG6VF5ADKHKXFX4LCPEV&marketplace=FLIPKART&cmpid=content_mobile_8965229628_gmc')
+req1
+soup=bs4.BeautifulSoup(req1.text)
+
+rating = soup.find('div',{'class':'ipqd2A'}).getText()
+rating
+
+indi_rating = soup.findAll('div',{'class':'XQDdHH Ga3i8K'})
+for rating in indi_rating:
+    print(rating.getText()+ '\n')
+
+reviews = soup.findAll('div',{'class':'ZmyHeo'})
+for r1 in reviews:
+    print(r1.getText() + "\n")
+
+cust_names = soup.findAll('p',{'class':'_2NsDsF AwS1CA'})
+for cust in cust_names:
+    print(cust.getText()+'\n')
+
+tags = soup.find('div',{'class':'_2lX4N0'}).getText()
+tags
+
+price = soup.find('div',{'class':'Nx9bqj CxhGGd'}).getText()
+price
